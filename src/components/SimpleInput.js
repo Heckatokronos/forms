@@ -1,31 +1,37 @@
+import { useState } from "react";
 import Input from "../shared/UI/Input/Input";
 
-import { useState } from "react";
-
-const SimpleInput = (props) => {
+const SimpleInput = () => {
   const [enteredName, setEnteredName] = useState("");
-  const [enteredNameIsValid, setEnteredNameIsValid] = useState(true);
+  const [enteredNameTouched, setEnteredNameTouched] = useState(false);
+
+  const enteredNameIsValid = enteredName.trim() !== "";
+  const nameInputIsInvalid = !enteredNameIsValid && enteredNameTouched;
 
   const nameInputChagneHandler = (event) => {
     setEnteredName(event.target.value);
   };
 
+  const nameInputBlurHandler = () => {
+    setEnteredNameTouched(true);
+  };
+
   const formSubmitionHandler = (event) => {
     event.preventDefault();
 
-    if (enteredName.trim() === "") {
-      setEnteredNameIsValid(false);
+    setEnteredNameTouched(true);
+
+    if (!enteredNameIsValid) {
       return;
     }
 
-    setEnteredNameIsValid(true);
-    console.log(enteredName);
     setEnteredName("");
+    setEnteredNameTouched(false);
   };
 
-  const nameInputClasses = enteredNameIsValid
-    ? "form-control"
-    : "form-control invalid";
+  const nameInputClasses = nameInputIsInvalid
+    ? "form-control invalid"
+    : "form-control";
 
   return (
     <form onSubmit={formSubmitionHandler}>
@@ -35,9 +41,10 @@ const SimpleInput = (props) => {
           id="name"
           label="Ваше имя"
           onChange={nameInputChagneHandler}
+          onBlur={nameInputBlurHandler}
           value={enteredName}
         />
-        {!enteredNameIsValid && (
+        {nameInputIsInvalid && (
           <p className="error-text">Имя не может быть пустым.</p>
         )}
       </div>
