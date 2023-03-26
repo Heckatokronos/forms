@@ -1,12 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Input from "../shared/UI/Input/Input";
 
 const SimpleInput = () => {
   const [enteredName, setEnteredName] = useState("");
   const [enteredNameTouched, setEnteredNameTouched] = useState(false);
+  const [formIsValid, setFormIsValid] = useState(false);
 
   const enteredNameIsValid = enteredName.trim() !== "";
   const nameInputIsInvalid = !enteredNameIsValid && enteredNameTouched;
+
+  useEffect(() => {
+    if (enteredNameIsValid) {
+      setFormIsValid(true);
+    } else {
+      setFormIsValid(false);
+    }
+  }, [enteredNameIsValid]);
 
   const nameInputChagneHandler = (event) => {
     setEnteredName(event.target.value);
@@ -49,7 +58,7 @@ const SimpleInput = () => {
         )}
       </div>
       <div className="form-actions">
-        <button>Отправить</button>
+        <button disabled={!formIsValid}>Отправить</button>
       </div>
     </form>
   );
