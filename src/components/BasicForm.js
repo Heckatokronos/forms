@@ -83,9 +83,8 @@ const BasicForm = (props) => {
   return (
     <form onSubmit={formSubmitionHandler}>
       <div className="control-group">
-        <div className="form-control">
+        <div className={nameInputClasses}>
           <Input
-            className={nameInputClasses}
             id="name"
             type="text"
             label="Имя"
@@ -96,8 +95,9 @@ const BasicForm = (props) => {
           {nameInputHasError && (
             <p className="error-text">Имя не может быть пустым.</p>
           )}
+        </div>
+        <div className={secondNameInputClasses}>
           <Input
-            className={secondNameInputClasses}
             id="name"
             type="text"
             label="Фамилия"
@@ -109,9 +109,8 @@ const BasicForm = (props) => {
             <p className="error-text">Фамилия не может быть пустой.</p>
           )}
         </div>
-        <div className="form-control">
+        <div className={thirdNameInputClasses}>
           <Input
-            className={thirdNameInputClasses}
             id="name"
             type="text"
             label="Отчество"
