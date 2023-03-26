@@ -23,11 +23,15 @@ const BasicForm = (props) => {
         </div>
       </div>
       <div className="form-control">
-        <label htmlFor="name">E-Mail Address</label>
-        <input type="text" id="name" />
+        <Input
+          className="form-control"
+          id="e-mail"
+          type="e-mail"
+          label="E-mail адрес"
+        />
       </div>
       <div className="form-actions">
-        <button>Submit</button>
+        <button>Отправить</button>
       </div>
     </form>
   );
